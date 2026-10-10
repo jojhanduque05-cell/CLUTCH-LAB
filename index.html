@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CLUTCHLAB: convierte tus partidas de Valorant en un plan de mejora.">
+  <title>CLUTCHLAB | Entrena con intención</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">C</span> CLUTCH<span>LAB</span></a>
+    <nav>
+      <a href="#dashboard">Panel</a>
+      <a href="#registro">Registrar partida</a>
+      <a href="#entrenamiento">Entrenamiento</a>
+    </nav>
+    <span class="local-badge"><i></i> MODO LOCAL</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">TU SIGUIENTE RANGO EMPIEZA AQUÍ</p>
+        <h1>Juega con intención.<br><span>Mejora cada ronda.</span></h1>
+        <p class="hero-text">Registra tus partidas, detecta patrones y convierte tus errores en un plan de práctica concreto.</p>
+        <a class="button primary" href="#registro">Analizar una partida <span>↗</span></a>
+      </div>
+      <div class="hero-panel">
+        <div class="crosshair">+</div>
+        <p class="panel-label">OBJETIVO DE LA SEMANA</p>
+        <h3>Menos muertes innecesarias</h3>
+        <p>Concéntrate en una mejora a la vez. La constancia vence a las sesiones sin propósito.</p>
+        <div class="mini-stats"><div><strong id="heroMatches">0</strong><small>PARTIDAS</small></div><div><strong id="heroWins">0%</strong><small>VICTORIAS</small></div></div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section">
+      <div class="section-heading"><div><p class="eyebrow">TU RESUMEN</p><h2>Panel de rendimiento</h2></div><span class="muted">Los datos se guardan en este navegador</span></div>
+      <div class="stats-grid">
+        <article class="stat-card"><span class="stat-icon">◈</span><p>Partidas registradas</p><strong id="totalMatches">0</strong><small>Tu historial de práctica</small></article>
+        <article class="stat-card"><span class="stat-icon">↗</span><p>Porcentaje de victoria</p><strong id="winRate">0%</strong><small>Según tus registros</small></article>
+        <article class="stat-card"><span class="stat-icon">◎</span><p>Muertes por partida</p><strong id="avgDeaths">—</strong><small>Promedio de muertes</small></article>
+        <article class="stat-card highlight"><span class="stat-icon">✦</span><p>Prioridad actual</p><strong id="priorityStat">Empieza aquí</strong><small>Tu error más repetido</small></article>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <section id="registro" class="section form-card">
+        <div class="section-heading"><div><p class="eyebrow">PASO 1</p><h2>Registra tu partida</h2></div></div>
+        <p class="muted intro">Sé honesto: el objetivo no es juzgarte, sino encontrar qué puedes mejorar.</p>
+        <form id="matchForm">
+          <div class="field-row">
+            <label>Resultado<select id="result" required><option value="win">Victoria</option><option value="loss">Derrota</option></select></label>
+            <label>Tu rango<select id="rank" required><option>Hierro</option><option>Bronce</option><option>Plata</option><option>Oro</option><option>Platino</option><option>Diamante</option><option>Ascendente</option><option>Inmortal</option><option>Radiante</option><option>Sin rango</option></select></label>
+          </div>
+          <div class="field-row">
+            <label>Tu rol<select id="role" required><option>Centinela</option><option>Duelista</option><option>Iniciador</option><option>Controlador</option></select></label>
+            <label>Muertes<input id="deaths" type="number" min="0" max="60" value="15" required></label>
+          </div>
+          <label>¿Qué problema notaste más?<select id="mistake" required>
+            <option value="aim">Fallé muchos disparos / mala colocación de mira</option>
+            <option value="first">Morí primero o me asomé solo</option>
+            <option value="movement">Me moví mientras disparaba</option>
+            <option value="utility">No aproveché bien mis habilidades</option>
+            <option value="decision">Tomé malas decisiones / roté tarde</option>
+            <option value="communication">Faltó comunicación con el equipo</option>
+          </select></label>
+          <label>Nota opcional<textarea id="notes" rows="3" maxlength="240" placeholder="Ej.: fallé los primeros disparos cuando el rival se movía..."></textarea></label>
+          <button class="button primary full" type="submit">Guardar partida <span>＋</span></button>
+          <p id="formMessage" class="form-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="section coach-card">
+        <div class="section-heading"><div><p class="eyebrow">PASO 2</p><h2>Tu entrenador</h2></div><span class="coach-symbol">✦</span></div>
+        <div id="coachContent" class="coach-content">
+          <div class="empty-state"><div class="empty-target">◎</div><h3>Tu análisis empieza aquí</h3><p>Registra algunas partidas y CLUTCHLAB encontrará los problemas que más se repiten.</p></div>
+        </div>
+        <div class="coach-footer"><span class="pulse"></span> Recomendaciones basadas en tus registros</div>
+      </section>
+    </section>
+
+    <section id="entrenamiento" class="section training-section">
+      <div class="section-heading"><div><p class="eyebrow">PASO 3</p><h2>Rutina para la próxima sesión</h2></div><span class="muted">30 minutos · ajustable</span></div>
+      <div id="trainingPlan" class="training-grid">
+        <article class="training-card"><span>01 / 10 MIN</span><h3>Calentamiento</h3><p>Practica movimientos suaves y dispara con control en el campo de práctica.</p></article>
+        <article class="training-card"><span>02 / 10 MIN</span><h3>Precisión</h3><p>Prioriza un disparo preciso antes de intentar disparar rápido.</p></article>
+        <article class="training-card"><span>03 / 10 MIN</span><h3>Aplicación</h3><p>En partidas, observa la altura de tu mira y evita asomarte sin información.</p></article>
+      </div>
+    </section>
+
+    <section class="section history-section">
+      <div class="section-heading"><div><p class="eyebrow">TU PROGRESO</p><h2>Últimas partidas</h2></div><button id="clearHistory" class="text-button" type="button">Borrar historial</button></div>
+      <div id="historyList" class="history-list"><p class="muted empty-history">Aún no has registrado partidas.</p></div>
+    </section>
+
+    <footer><a class="brand" href="#"><span class="brand-mark">C</span> CLUTCH<span>LAB</span></a><p>Proyecto independiente para practicar y mejorar. No está afiliado a Riot Games ni a VALORANT.</p><small>Versión inicial · Los datos se guardan solo en este dispositivo.</small></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
